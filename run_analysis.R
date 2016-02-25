@@ -12,27 +12,6 @@ run_analysis <- function(){
                                 col.names = c("ignore", "activity"), 
                                 stringsAsFactors = TRUE)
   
-  # #Extracting train data
-  # x_train <- read.table(paste0(file_train, "X_train.txt"))
-  # y_train <- read.table(paste0(file_train, "y_train.txt"), col.names = "activity")
-  # subject_train <- read.table(paste0(file_train, "subject_train.txt"), col.names = "subject_id")
-  # 
-  # names(x_train) <- features[[2]]
-  # y_train[[1]] <- as.factor(y_train[[1]])
-  # levels(y_train[[1]]) <- activity_labels$activity
-  # train <- cbind(subject_train, y_train, x_train)
-  #                
-  # # Extracting test data
-  # x_test <- read.table(paste0(file_test, "X_test.txt"))
-  # y_test <- read.table(paste0(file_test, "y_test.txt"), col.names = "activity")
-  # subject_test <- read.table(paste0(file_test, "subject_test.txt"), col.names = "subject_id")
-  # 
-  # names(x_test) <- features[[2]]
-  # #x_test <- x_test(grep("[Mm]ean|std", names(x_test)))
-  # y_test[[1]] <-  as.factor(y_test[[1]])
-  # levels(y_test[[1]]) <- activity_labels$activity
-  # test <- cbind(subject_test, y_test, x_test)
-  
   # function that extract data from text file
   extract_data <- function(file_path, name){
     x_temp <- read.table(paste0(file_path, "X_", name, ".txt"))
@@ -47,8 +26,18 @@ run_analysis <- function(){
     train <- cbind(subject_temp, y_temp, x_temp) 
   }
   
-  return(extract_data(file_test, "test"))
+  test <- extract_data(file_test, "test")
+  train <- extract_data(file_train, "train")
   
   combine <- rbind(train, test)
   
+  pattern <- c("^t", "^f", "Acc", "Mag")
+  replacement <- c("time", "frequency", "Acceleration", "Magnitude")
+  names <- names(combine)
+  
+  for(i in seq_along(pattern)){
+    names <- sub(pattern[i], replacement[i], names)
+  }
+  names(combine) <- names
+  return(combine)
 }
