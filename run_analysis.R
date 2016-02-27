@@ -54,7 +54,7 @@ run_analysis <- function(){
   names(combine) <- names
   combine <- combine %>% gather(features, value, -subject_id, -activity)
   combine$jerk <- grepl("Jerk", combine$features)
-  combine$mag <- grepl("Mag", combine$features)
+  combine$magnitude <- grepl("Mag", combine$features)
   combine <- separate(combine, col= features, 
                       into =c("domain", 
                               "acceleration", 
