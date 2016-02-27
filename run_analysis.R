@@ -1,4 +1,6 @@
-# Add library that I need to run this problem
+library(reshape2)
+library(tidyr)
+library(dplyr)
 
 run_analysis <- function(){
   # Location of the files
@@ -42,7 +44,7 @@ run_analysis <- function(){
   # Combine test and train dataset together
   combine <- rbind(train, test)
   
-  # Make labelusable with separate function
+  # Make label usable with separate function by adding -
   pattern <- c("^t", "^f", "Acc", "Gyro", "\\(\\)", "mean$", "std$")
   replacement <- c("time-", "freq-", "-Acc", "-Gyro", "", "mean-NA", "std-NA")
   names <- names(combine)
@@ -51,10 +53,14 @@ run_analysis <- function(){
     names <- sub(pattern[i], replacement[i], names)
   }
   
+  # Collapses into key-value pairs
   names(combine) <- names
   combine <- combine %>% gather(features, value, -subject_id, -activity)
+  
+  # Determine if row has jerk or magnitude data
   combine$jerk <- grepl("Jerk", combine$features)
   combine$magnitude <- grepl("Mag", combine$features)
+  # Separate the multiple observation into columns
   combine <- separate(combine, col= features, 
                       into =c("domain", 
                               "acceleration", 
@@ -72,6 +78,7 @@ run_analysis <- function(){
 }
 
 run_summarize<- function(df){
+  # Group data by subject_id and activities
   df <- group_by(df, subject_id, activity)
   summarize(df, mean(value))
 }
