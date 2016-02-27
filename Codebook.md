@@ -5,7 +5,7 @@ Variable list and description
 ---
 
 variable name | Description
----------------------------
+--------------|-------------
 subject_id    | The subject id number for the experiment. Range from 1 to 30
 activity      | Activity name
 domain        | Time or frequency
@@ -18,19 +18,19 @@ axis          | X, Y, Z, NA
 
 Getting DF
 ---
-'''r
+```r
 df <- run_analysis()
-'''
+```
 
 Dataset structure
 ---
 
-'''r
+```r
 str(df)
-'''
+```
 
-'''
-'data.frame':	617940 obs. of  10 variables:
+```
+ 'data.frame':	617940 obs. of  10 variables:
  $ subject_id  : Factor w/ 30 levels "1","2","3","4",..: 1 1 1 1 1 1 1 1 1 1 ...
  $ activity    : Factor w/ 6 levels "WALKING","WALKING_UPSTAIRS",..: 5 5 5 5 5 5 5 5 5 5 ...
  $ domain      : Factor w/ 2 levels "freq","time": 2 2 2 2 2 2 2 2 2 2 ...
@@ -41,28 +41,28 @@ str(df)
  $ jerk        : logi  FALSE FALSE FALSE FALSE FALSE FALSE ...
  $ mag         : logi  FALSE FALSE FALSE FALSE FALSE FALSE ...
  $ value       : num  0.289 0.278 0.28 0.279 0.277 ...
-'''
+```
 
 List the key variables in the data frame
 ---
 
-'''r
+```r
 names(df)
-'''
+```
 
-'''
+```
  [1] "subject_id"   "activity"     "domain"       "acceleration"
  [5] "instructment" "variable"     "axis"         "jerk"        
  [9] "mag"          "value" 
-'''
+```
 
 A few rows in the data frame
 ---
-'''r
+```r
 head(df)
-'''
+```
 
-'''
+```
   subject_id activity domain acceleration instructment variable axis
 1          1 STANDING   time         Body          Acc     mean    X
 2          1 STANDING   time         Body          Acc     mean    X
@@ -77,15 +77,15 @@ head(df)
 4 FALSE FALSE 0.2791739
 5 FALSE FALSE 0.2766288
 6 FALSE FALSE 0.2771988
-'''
+```
 
 Summary of the data frame
 ---
-'''r
+```r
 run_summarize(df)
-'''
+```
 
-'''
+```
 Source: local data frame [6 x 3]
 Groups: subject_id [1]
 
@@ -97,5 +97,5 @@ Groups: subject_id [1]
 4          1            SITTING  -0.7002721
 5          1           STANDING  -0.7281147
 6          1             LAYING  -0.6594628
-'''
+```
 
