@@ -99,3 +99,6 @@ Groups: subject_id [1]
 6          1             LAYING  -0.6594628
 ```
 
+Tidy data
+---
+Tidy data is in tidyDF.zip
